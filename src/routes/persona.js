@@ -11,4 +11,8 @@ router.get("/persona/:id",getPersonaById ); //obtener persona
 router.put("/persona/:id",updatePersona ); //actualizar persona
 router.delete("/persona/:id", deletePersona); //eliminar persona
 
+
+
+
+
 export default router;

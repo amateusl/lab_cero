@@ -27,19 +27,7 @@ export const getMunicipio = async (req, res) => {
     }
   }
 
-export const getMunicipioById = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const todo = await pool.query("SELECT * FROM municipio WHERE id_municipio = $1",
-        [id]
-      );
-  
-      res.json(todo.rows[0]);
-    } catch (err) {
-      res.json(err.message);
-      console.error(err.message);
-    }
-  }
+
 
 export const updateMunicipio = async (req, res) => {
     try {

@@ -31,71 +31,106 @@ router.get("/reside", async (req, res) => {
 });
 
 // Obtener todas las viviendas de un reside o todas los resides de una vivienda
-router.get("/reside/:id", async (req, res) => {
+router.get("/residep/:id", async (req, res) => { //obtener viviendas donde reside una persona
     try {
         const { id } = req.params;
-        const { es_id_de_persona } = req.body;
-        if (es_id_de_persona) {
-            const residencia = await pool.query("SELECT * FROM reside WHERE id_persona = $1", [id]);
-            res.json(residencia.rows);
-        }
-        else {
-            const residencia = await pool.query("SELECT * FROM reside WHERE id_vivienda = $1", [id]);
-            res.json(residencia.rows);
-        }
-
+        const consulta = `
+            SELECT 
+                p.nombre AS nombre_persona,
+                v.direccion,
+                v.capacidad,
+                v.niveles
+            FROM 
+                reside r
+            JOIN 
+                persona p ON r.id_persona = p.id_persona
+            JOIN 
+                vivienda v ON r.id_vivienda = v.id_vivienda
+            WHERE 
+                p.id_persona = $1;
+        `;
+        const resultado = await pool.query(consulta, [id]);
+        res.json(resultado.rows);
     } catch (err) {
         res.json(err.message);
         console.error(err.message);
     }
 });
 
-// Obtener residencia especifica con reside especifico
-router.get("/reside-residencia/", async (req, res) => {
+router.get("/residev/:id", async (req, res) => { //obtener Personas que residen en una vivienda
     try {
-        const { id_persona, id_vivienda } = req.body;
-
-        const residencia = await pool.query("SELECT * FROM reside WHERE id_persona = $1 AND id_vivienda = $2",
-        [id_persona, id_vivienda]);
-
-        res.json(residencia.rows[0]);
-
-
+        const { id } = req.params;
+        const consulta = `
+            SELECT 
+                v.direccion,
+                v.capacidad,
+                v.niveles,
+                p.nombre,
+                p.documento,
+                p.celular,
+                p.edad,
+                p.sexo
+            FROM 
+                reside r
+            JOIN 
+                vivienda v ON r.id_vivienda = v.id_vivienda
+            JOIN 
+                persona p ON r.id_persona = p.id_persona
+            WHERE 
+                v.id_vivienda = $1;
+        `;
+        const resultado = await pool.query(consulta, [id]);
+        res.json(resultado.rows);
     } catch (err) {
         res.json(err.message);
         console.error(err.message);
     }
 });
 
-// UPDATE residencia especifica con reside especifico
-router.put("/reside-residencia/", async (req, res) => {
+router.put("/reside", async (req, res) => {
     try {
-        const { id_personaNuevo, id_viviendaNuevo, id_persona, id_vivienda } = req.body;
-        const updateTodo = await pool.query(
-            "UPDATE reside SET id_persona = $1, id_vivienda = $2 WHERE id_persona = $3 AND id_vivienda = $4",
-            [id_personaNuevo, id_viviendaNuevo, id_persona, id_vivienda]
+        const { id_persona, id_vivienda, nueva_id_vivienda } = req.body;
+
+        const updateResidencia = await pool.query(
+            `UPDATE reside 
+            SET id_vivienda = $1 
+            WHERE id_persona = $2 AND id_vivienda = $3`,
+            [nueva_id_vivienda, id_persona, id_vivienda]
         );
 
-        res.json("datos de reside actualizados");
+        if (updateResidencia.rowCount === 0) {
+            return res.status(404).json({ message: "No se encontró la residencia especificada." });
+        }
+
+        res.json({ message: "Residencia actualizada exitosamente." });
     } catch (err) {
-        res.json(err.message);
+        res.status(500).json({ error: err.message });
         console.error(err.message);
     }
 });
 
-// DELETE residencia especifica con reside especifico
-router.delete("/reside-residencia/", async (req, res) => {
+
+router.delete("/reside", async (req, res) => {
     try {
         const { id_persona, id_vivienda } = req.body;
-            const deleteresidencia = await pool.query("DELETE FROM reside WHERE id_persona = $1 AND id_vivienda = $2",
-                [id_persona, id_vivienda]
-            );
-        
-        res.json("datos de reside eliminados");
+
+        const deleteResidencia = await pool.query(
+            `DELETE FROM reside 
+            WHERE id_persona = $1 AND id_vivienda = $2`,
+            [id_persona, id_vivienda]
+        );
+
+        if (deleteResidencia.rowCount === 0) {
+            return res.status(404).json({ message: "No se encontró la residencia especificada." });
+        }
+
+        res.json({ message: "Residencia eliminada exitosamente." });
     } catch (err) {
-        res.json(err.message);
-        console.log(err.message);
+        res.status(500).json({ error: err.message });
+        console.error(err.message);
     }
 });
+
+
 
 export default router;

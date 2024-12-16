@@ -44,21 +44,3 @@ export const getDependiente = async (req, res) => {
     }
 }
 
-export const getDependienteById = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { es_id_de_dependiente } = req.body;
-        if (es_id_de_dependiente) {
-            const dependenciaTemp = await pool.query("SELECT * FROM dependiente WHERE id_dependiente = $1", [id]);
-            res.json(dependenciaTemp.rows);
-        }
-        else {
-            const dependenciaTemp = await pool.query("SELECT * FROM dependiente WHERE id_cabeza_familia = $1", [id]);
-            res.json(dependenciaTemp.rows);
-        }
-
-    } catch (err) {
-        res.json(err.message);
-        console.error(err.message);
-    }
-}

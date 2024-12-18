@@ -32,7 +32,7 @@ function Card({ id, nombre, documento, celular, edad, sexo }) {
         setIsDependientesModalOpen(false);
     };
     return (
-        <div className="card bg-color-1 rounded-xl p-4 shadow-lg font-lato h-fit" key={id}>
+        <div className="card bg-color-1 rounded-xl p-4 shadow-lg font-lexend h-fit" key={id}>
             <div className="flex items-center">
                 <FontAwesomeIcon icon={faUser} size="xl" />
                 <h2 className='ml-4 text-bold text-lg'>{nombre}</h2>

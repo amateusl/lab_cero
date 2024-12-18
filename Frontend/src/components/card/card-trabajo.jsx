@@ -12,7 +12,7 @@ function Card({ idtrabajo, cargo, empresa, salario, idpersona }) {
         setIsConfirmModalOpen(false);
     };
     return (
-        <div className="card bg-color-1 rounded-xl p-4 shadow-lg font-lato h-fit" key={idtrabajo}>
+        <div className="card bg-color-1 rounded-xl p-4 shadow-lg font-lexend h-fit" key={idtrabajo}>
             <div className="flex items-center">
                 <FontAwesomeIcon icon={faUser} size="xl" />
                 <h2 className='ml-4 text-bold text-lg'>Cargo : {cargo}</h2>

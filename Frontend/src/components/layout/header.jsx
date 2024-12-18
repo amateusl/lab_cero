@@ -10,7 +10,7 @@ export default function Header() {
     }, [location]);
 
     return (
-        <nav className="bg-color-1 font-lato">
+        <nav className="bg-color-1 font-lexend">
             <div className="container mx-auto px-4 py-2 flex flex-wrap justify-between items-center text-color-4">
                 <Link to="/" className="w-full sm:w-auto text-center sm:text-left">
                     <span className="font-bold text-5xl">CRUD-0</span>
@@ -62,15 +62,15 @@ export default function Header() {
                             Trabajo
                         </Link>
                     </li>
-                    <li>
-                        <Link
+                    {/* <li> */}
+                        {/* <Link
                             to="/planteamiento"
                             className={`px-2 py-1 font-medium rounded ${currentPath === '/planteamiento' ? 'rounded-3xl border border-color-4' : ''
                                 }`}
                         >
                             Planteamiento
-                        </Link>
-                    </li>
+                        </Link> */}
+                    {/* </li> */}
                 </ul>
             </div>
         </nav>

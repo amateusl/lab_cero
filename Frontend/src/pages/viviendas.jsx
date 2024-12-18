@@ -38,14 +38,14 @@ export default function Viviendas() {
         <div className="bg-color-3">
             <Layout>
                 <div className="flex flex-col md:flex-row">
-                    <div className="md:w-1/4 p-4 font-lato flex flex-col items-center mt-20 m-5 md:ml-10">
+                    <div className="md:w-1/4 p-4 font-lexend flex flex-col items-center mt-20 m-5 md:ml-10">
                         <button
                             onClick={() => setIsModalOpen(true)}
                             className="mt-4 p-2 bg-color-1 text-color-4 rounded-xl text-2xl mb-10"
                         >
                             Agregar Vivienda
                         </button>
-                        <img src="https://raw.githubusercontent.com/jtnvv/LabCRUD-TETO/main/Frontend/src/assets/extra/vivienda.png" alt="Viviendas" className="w-80" />
+                        <img src="" alt="Viviendas" className="w-80" />
                         <h1 className="text-6xl font-bold text-color-1">VIVIENDAS</h1>
                         <input
                             type="text"

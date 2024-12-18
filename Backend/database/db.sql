@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public.persona
 
 CREATE TABLE IF NOT EXISTS public.municipio
 (
-    id_municipio serial NOT NULL,|
+    id_municipio serial NOT NULL,
     nombre text NOT NULL,
     area integer NOT NULL,
     altitud integer NOT NULL,

@@ -1,47 +1,127 @@
-import Header from "../components/layout/header"
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 export default function Home() {
+    const location = useLocation();
+    const [currentPath, setCurrentPath] = useState(location.pathname);
+
+    useEffect(() => {
+        setCurrentPath(location.pathname);
+    }, [location]);
+
     return (
-        <div className="h-full bg-color-1 relative pb-32">
-            <Header className="z-50" />
-            <div className="mt-3 h-full max-h-full flex flex-col md:flex-row justify-center bg-color-1">
-                <div className="w-full pl-4 md:pl-20 flex flex-col justify-center">
-                    <h1 className="text-2xl md:text-5xl font-lato text-color-4">LAB0 : CRUD</h1>
-                    <p className="text-xl md:text-2xl font-lato text-color-4 mb-10">Grupo 1 - LEROI</p>
-                    <div className="space-y-4 font-lato">
-                        <div className="bg-color-3 text-color-4 mr-4 md:mr-20 flex flex-col md:flex-row w-full md:w-3/4 rounded-3xl">
-                            <img src="https://raw.githubusercontent.com/jtnvv/LabCRUD-TETO/main/Frontend/src/assets/daniel.png" alt="CRUD-0" className="w-full md:w-1/4 p-0 m-0 rounded-l-3xl object-cover" />
-                            <div className="p-4 md:p-10">
-                                <p className="text-lg md:text-xl">Sebastián López Silva</p>
-                                <p>Ing. de sistemas y computación</p>
-                            </div>
+        <div className="h-screen bg-color-1 flex flex-col justify-between items-center">
+            {/* Título centrado en la parte superior */}
+            <div className="text-center mt-8">
+                <h1 className="text-4xl md:text-5xl font-lexend text-color-4 font-bold">
+                    LAB0: CRUD
+                </h1>
+                <p className="text-lg md:text-2xl font-lexend text-color-4 mt-2">
+                    Grupo - LEROI
+                </p>
+            </div>
+
+            {/* Header (botones centrados en el medio de la pantalla) */}
+            <nav className="bg-color-1 font-lexend w-full p-6" >
+                <ul className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 text-2xl text-color-4">
+                    <li>
+                        <Link
+                            to="/"
+                            className={`px-4 py-2 font-medium rounded ${currentPath === '/' ? 'rounded-3xl border border-color-4' : ''}`}
+                        >
+                            Inicio
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to="/personas"
+                            className={`px-4 py-2 font-medium rounded ${currentPath === '/personas' ? 'rounded-3xl border border-color-4' : ''}`}
+                        >
+                            Personas
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to="/municipios"
+                            className={`px-4 py-2 font-medium rounded ${currentPath === '/municipios' ? 'rounded-3xl border border-color-4' : ''}`}
+                        >
+                            Municipios
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to="/viviendas"
+                            className={`px-4 py-2 font-medium rounded ${currentPath === '/viviendas' ? 'rounded-3xl border border-color-4' : ''}`}
+                        >
+                            Viviendas
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to="/trabajo"
+                            className={`px-4 py-2 font-medium rounded ${currentPath === '/trabajo' ? 'rounded-3xl border border-color-4' : ''}`}
+                        >
+                            Trabajo
+                        </Link>
+                    </li>
+                </ul>
+            </nav>
+
+            <div className="w-full h-96">
+            <img
+            src="/src/assets/home/Cundimapa.jpg"
+            alt="Imagen principal"
+            className="w-full h-96 object-cover"
+            />
+            </div>
+
+            {/* Sección de integrantes en 2 columnas */}
+            <div className=" bg-color-1 grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 mb-12 w-full px-8 md:px-20">
+                {[
+                    {
+                        name: "Sebastián López Silva",
+                        role: "Ing. de sistemas y computación",
+                        image: "/src/assets/members/mateo.png"
+                    },
+                    {
+                        name: "Maria Camila Amaya Rodríguez",
+                        role: "Ing. de sistemas y computación",
+                        image: "/src/assets/members/camila.png"
+                    },
+                    {
+                        name: "Anderson Steven Mateus López",
+                        role: "Ing. de sistemas y computación",
+                        image: "/src/assets/members/anderson.png"
+                    },
+                    {
+                        name: "Juan David Rodríguez Gómez",
+                        role: "Ing. de sistemas y computación",
+                        image: "/src/assets/members/juan.png"
+                    }
+                ].map((member, index) => (
+                    <div
+                        key={index}
+                        className="bg-color-3 text-color-4 rounded-3xl flex flex-col items-center md:flex-row w-full p-4 md:p-6 shadow-lg"
+                    >
+                        {/* Imagen del integrante en círculo */}
+                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
+                            <img
+                                src={member.image}
+                                alt={`Miembro ${member.name}`}
+                                className="w-full h-full object-cover"
+                            />
                         </div>
-                        <div className="bg-color-3 text-color-4 mr-4 md:mr-20 flex flex-col md:flex-row w-full md:w-3/4 rounded-3xl">
-                            <img src="https://raw.githubusercontent.com/jtnvv/LabCRUD-TETO/main/Frontend/src/assets/sergio.jpeg" alt="CRUD-0" className="w-full md:w-1/4 p-0 m-0 rounded-l-3xl object-cover" />
-                            <div className="p-4 md:p-10">
-                                <p className="text-lg md:text-xl">Maria Camila Amaya Rodríguez</p>
-                                <p>Ing. de sistemas y computación</p>
-                            </div>
-                        </div>
-                        <div className="bg-color-3 text-color-4 mr-4 md:mr-20 flex flex-col md:flex-row w-full md:w-3/4 rounded-3xl">
-                            <img src="https://raw.githubusercontent.com/jtnvv/LabCRUD-TETO/main/Frontend/src/assets/acevedo.jpg" alt="CRUD-0" className="w-full md:w-1/4 p-0 m-0 rounded-l-3xl object-cover" />
-                            <div className="p-4 md:p-10">
-                                <p className="text-lg md:text-xl">Anderson Steven Mateus López</p>
-                                <p>Ing. de sistemas y computación</p>
-                            </div>
-                        </div>
-                        <div className="bg-color-3 text-color-4 mr-4 md:mr-20 flex flex-col md:flex-row w-full md:w-3/4 rounded-3xl">
-                            <img src="https://raw.githubusercontent.com/jtnvv/LabCRUD-TETO/main/Frontend/src/assets/jonathan.jpeg" alt="CRUD-0" className="w-full md:w-1/4 p-0 m-0 rounded-l-3xl object-cover" />
-                            <div className="p-4 md:p-10">
-                                <p className="text-lg md:text-xl">Juan David Rodríguez Gómez</p>
-                                <p>Ing. de sistemas y computación</p>
-                            </div>
+
+                        {/* Información del integrante */}
+                        <div className="text-center md:text-left md:ml-6 mt-4 md:mt-0">
+                            <p className="text-lg md:text-xl font-semibold">
+                                {member.name}
+                            </p>
+                            <p className="text-sm">{member.role}</p>
                         </div>
                     </div>
-                </div>
-                <div className="mt-4 md:mt-0">
-                    <img src="https://i.etsystatic.com/22453858/r/il/96c2da/3680644333/il_fullxfull.3680644333_s0lo.jpg" alt="CRUD-0" className="w-full md:w-2/3 mr-4 object-cover" />
-                </div>
+                ))}
             </div>
         </div>
-    )
+    );
 }

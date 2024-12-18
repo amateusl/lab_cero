@@ -8,13 +8,13 @@ export default {
       extend: {
         colors: {
           'color-1': '#694BFC',
-          'color-2': '#88AFF0',
-          'color-3': '#5E5EED',
+          'color-2': '#5E5EED',
+          'color-3': '#88AFF0',
           'color-4': '#EFEFEF',
           'color-5': '#FFFFFF'
         },
         fontFamily: {
-          'lato': ['Lato', 'sans-serif'],
+          'lexend': ['Lexend', 'sans-serif'],
         },
       },
     },

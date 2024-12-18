@@ -33,7 +33,7 @@ function Card({ id, direccion, capacidad, niveles, municipio }) {
     };
 
     return (
-        <div className="card bg-color-1 rounded-xl p-4 shadow-lg font-lato h-fit" key={id}>
+        <div className="card bg-color-1 rounded-xl p-4 shadow-lg font-lexend h-fit" key={id}>
             <div className="flex items-center">
                 <FontAwesomeIcon icon={faHome} size="xl" />
                 <h2 className='ml-4 text-bold text-lg'>{direccion}</h2>

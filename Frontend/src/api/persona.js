@@ -1,23 +1,59 @@
-import axios from 'axios';
+import axios from "axios";
 
-const url = import.meta.env.VITE_API_URL;
 
-export async function getPersonas() {
-    return await axios.get(`${url}/persona`);
-}
+const BASE_URL = "http://localhost:3001"; 
 
-export async function getPersonaById(id) {
-    return await axios.get(`${url}/persona/${id}`);
-}
+// Obtener todas las personas
+export const getPersonas = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/persona`);
+    return response.data;
+  } catch (error) {
+    console.error("Error obteniendo personas:", error);
+    throw error;
+  }
+};
 
-export async function createPersona(data) {
-    return await axios.post(`${url}/persona`, data);
-}
+// Crear una nueva persona
+export const createPersona = async (persona) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/persona`, persona);
+    return response.data;
+  } catch (error) {
+    console.error("Error creando persona:", error);
+    throw error;
+  }
+};
 
-export async function updatePersona(id, data) {
-    return await axios.put(`${url}/persona/${id}`, data);
-}
+// Obtener una persona por ID
+export const getPersonaById = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/persona/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error obteniendo persona con ID ${id}:`, error);
+    throw error;
+  }
+};
 
-export async function deletePersona(id) {
-    return await axios.delete(`${url}/persona/${id}`);
-}
+// Actualizar una persona
+export const updatePersona = async (id, persona) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/persona/${id}`, persona);
+    return response.data;
+  } catch (error) {
+    console.error(`Error actualizando persona con ID ${id}:`, error);
+    throw error;
+  }
+};
+
+// Eliminar una persona
+export const deletePersona = async (id) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/persona/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error eliminando persona con ID ${id}:`, error);
+    throw error;
+  }
+};

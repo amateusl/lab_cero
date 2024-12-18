@@ -1,23 +1,58 @@
-import axios from 'axios';
+import axios from "axios";
 
-const url = import.meta.env.VITE_API_URL;
+const BASE_URL = "http://localhost:3001"; // Cambia si tu backend está en otro dominio o puerto
 
+// Crear un nuevo trabajo
+export const createTrabajo = async (data) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/trabajo`, data);
+        return response.data;
+    } catch (error) {
+        console.error("Error creando trabajo:", error);
+        throw error;
+    }
+};
+
+// Obtener todos los trabajos
 export const getTrabajos = async () => {
-    const res = await axios.get(`${url}/trabajo/`);
-    return res.data;
-}
+    try {
+        const response = await axios.get(`${BASE_URL}/trabajo`);
+        return response.data;
+    } catch (error) {
+        console.error("Error obteniendo trabajos:", error);
+        throw error;
+    }
+};
 
-export const createTrabajo = async (trabajo) => {
-    const res = await axios.post(`${url}/trabajo/`, trabajo);
-    return res.data;
-}
+// Actualizar un trabajo específico
+export const updateTrabajo = async (id, data) => {
+    try {
+        const response = await axios.put(`${BASE_URL}/trabajo/${id}`, data);
+        return response.data;
+    } catch (error) {
+        console.error(`Error actualizando trabajo con ID ${id}:`, error);
+        throw error;
+    }
+};
 
-export const getTrabajoById = async (id) => {
-    const res = await axios.get(`${url}/trabajo/${id}`);
-    return res.data;
-}
-
+// Eliminar un trabajo específico
 export const deleteTrabajo = async (id) => {
-    const res = await axios.delete(`${url}/trabajo/${id}`);
-    return res.data;
-}
+    try {
+        const response = await axios.delete(`${BASE_URL}/trabajo/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error eliminando trabajo con ID ${id}:`, error);
+        throw error;
+    }
+};
+
+// Obtener información de una persona relacionada con su trabajo o gobierno
+export const getTrabajoPersona = async (id) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/trabajop/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error obteniendo información de la persona con ID ${id}:`, error);
+        throw error;
+    }
+};

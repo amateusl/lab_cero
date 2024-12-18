@@ -30,13 +30,13 @@ function CreateModal({ onClose }) {
 
         try {
             const alcaldeInfo = await getPersonaById(alcalde);
-            if (!alcaldeInfo.data) {
+            if (!alcaldeInfo) {
                 Swal.fire('Error', 'El alcalde no existe', 'error');
                 return;
             }
 
             const existingGobierna = await getGobiernaByIdPersona(alcalde);
-            if (existingGobierna.data.length > 0) {
+            if (existingGobierna.length > 0) {
                 Swal.fire('Error', 'El alcalde ya está asignado a otro municipio', 'error');
                 return;
             }
@@ -48,7 +48,7 @@ function CreateModal({ onClose }) {
             });
             await createGobierna({
                 id_persona: alcalde,
-                id_municipio: newMunicipio.data.id_municipio,
+                id_municipio: newMunicipio.id_municipio,
             });
             Swal.fire('Éxito', 'Municipio creado correctamente', 'success')
                 .then(() => {

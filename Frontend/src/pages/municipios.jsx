@@ -1,31 +1,44 @@
-import Layout from "../components/layout/layout"
-import Card from "../components/card/card-municipio"
+import Layout from "../components/layout/layout";
+import Card from "../components/card/card-municipio";
 import { useState, useEffect } from 'react';
 import CreateModal from "../components/modal/municipio/modal-create-municipio";
 import { getMunicipios } from "../api/municipio";
-import { getGobiernaByIdPersona } from "../api/gobierna";
-import { getPersonaById } from "../api/persona";
+import { getGobiernaByIdMunicipio } from "../api/gobierna";
 
 export default function Municipios() {
     const [municipios, setMunicipios] = useState([]);
+    const [search, setSearch] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         const fetchMunicipios = async () => {
-            const municipiosData = await getMunicipios();
-            const municipiosWithAlcalde = await Promise.all(municipiosData.map(async (municipio) => {
-                const gobiernaData = await getGobiernaByIdPersona(municipio.id_municipio);
-                const alcaldeInfo = await getPersonaById(gobiernaData[0].id_persona);
-                return { ...municipio, gobierna: gobiernaData[0].id_persona, alcalde: alcaldeInfo };
-            }));
-            setMunicipios(municipiosWithAlcalde);
+            try {
+                const municipiosData = await getMunicipios();
+                
+                const municipiosWithAlcalde = await Promise.all(
+                    municipiosData.map(async (municipio) => {
+                        const gobiernaData = await getGobiernaByIdMunicipio(municipio.id_municipio);
+                        
+                        // Extrae el nombre del alcalde desde gobiernaData
+                        const nombreAlcalde = gobiernaData?.municipio?.gobernante?.nombre || 'No asignado';
+
+                        return { 
+                            ...municipio, 
+                            alcalde: { nombre: nombreAlcalde } // Solo incluye el nombre del alcalde
+                        };
+                    })
+                );
+
+                setMunicipios(municipiosWithAlcalde);
+            } catch (error) {
+                console.error("Error fetching municipios:", error);
+            }
         };
 
         fetchMunicipios();
     }, []);
 
-    const [search, setSearch] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const filteredMunicipios = municipios.filter(municipio =>
+    const filteredMunicipios = municipios.filter((municipio) =>
         municipio.nombre.toLowerCase().includes(search.toLowerCase())
     );
 
@@ -46,7 +59,7 @@ export default function Municipios() {
                             type="text"
                             placeholder="Buscar por nombre del municipio"
                             value={search}
-                            onChange={e => setSearch(e.target.value)}
+                            onChange={(e) => setSearch(e.target.value)}
                             className="p-2 rounded-2xl w-80 mt-4"
                         />
                     </div>
@@ -55,8 +68,7 @@ export default function Municipios() {
                             <Card
                                 key={index}
                                 id={municipio.id_municipio}
-                                idalcalde={municipio.alcalde.id_persona}
-                                nombrealcalde={municipio.alcalde.nombre}
+                                nombrealcalde={municipio.alcalde.nombre} // Mostrar el nombre del alcalde
                                 nombre={municipio.nombre}
                                 area={municipio.area}
                                 altitud={municipio.altitud}
@@ -67,5 +79,5 @@ export default function Municipios() {
                 {isModalOpen && <CreateModal onClose={() => setIsModalOpen(false)} />}
             </Layout>
         </div>
-    )
+    );
 }

@@ -17,7 +17,7 @@ function CreateModal({ onClose }) {
     useEffect(() => {
         const loadMunicipios = async () => {
             const loadedMunicipios = await getMunicipios();
-            setMunicipios(loadedMunicipios.data);
+            setMunicipios(loadedMunicipios);
         };
 
         loadMunicipios();
@@ -27,7 +27,7 @@ function CreateModal({ onClose }) {
 
         try {
             const propietarioInfo = await getPersonaById(idpropietario);
-            if (!propietarioInfo.data) {
+            if (!propietarioInfo) {
                 Swal.fire('Error', 'El propietario no existe', 'error');
                 return;
             }

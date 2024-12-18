@@ -8,7 +8,7 @@ function ConfirmModal({ onClose, id }) {
             const gobierna = await getGobiernaByIdPersona(id);
             const propietario = await getPropietarioById(id);
             console.log(propietario);
-            if (gobierna.data.length > 0 && gobierna.data[0].id_municipio || propietario.length > 0) {
+            if (gobierna.length > 0 && gobierna[0].id_municipio || propietario.length > 0) {
                 Swal.fire('Error', 'La persona es un alcalde o propietario de casa, primero modifica alguna de esasa opciones', 'error');
             } else {
                 await deletePersona(id);

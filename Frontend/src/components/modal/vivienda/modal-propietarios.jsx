@@ -13,10 +13,10 @@ function PropietariosModal({ onClose, id }) {
                     const persona = await getPersonaById(propietario.id_persona);
                     if (persona) {
                         return {
-                            id_persona: persona.data.id_persona,
-                            documento: persona.data.documento,
-                            nombre: persona.data.nombre,
-                            edad: persona.data.edad
+                            id_persona: persona.id_persona,
+                            documento: persona.documento,
+                            nombre: persona.nombre,
+                            edad: persona.edad
                         };
                     }
                 });

@@ -1,19 +1,23 @@
 import {pool} from "../db.js";
 
-export const createTrabajo = async (req, res) => {
+export const createTrabajo = async (req, res) => { 
     try {
-        const { cargo, empresa, salario, id_persona } = req.body;
-        const trabajoTemp = await pool.query(
-            "INSERT INTO trabajo (cargo, empresa, salario, id_persona) VALUES($1, $2, $3, $4) RETURNING *",
-            [cargo, empresa, salario, id_persona]
-        );
-
-        res.json(trabajoTemp.rows[0]);
+      const { cargo, empresa, salario, id_persona } = req.body;
+      const lastTrabajo = await pool.query("SELECT id_trabajo FROM trabajo ORDER BY id_trabajo DESC LIMIT 1");
+      if (lastTrabajo.rows.length > 0) {
+        const lastId = lastTrabajo.rows[0].id_trabajo;
+        await pool.query("SELECT setval('trabajo_id_trabajo_seq', $1)", [lastId]);
+      }
+      const trabajoTemp = await pool.query(
+        "INSERT INTO trabajo (cargo, empresa, salario, id_persona) VALUES($1, $2, $3, $4) RETURNING *",
+        [cargo, empresa, salario, id_persona]
+      );
+      res.json(trabajoTemp.rows[0]);
     } catch (err) {
-        res.json(err.message);
-        console.error(err.message);
+      res.json(err.message);
+      console.error(err.message);
     }
-}
+  };
 
 export const getTrabajo = async (req, res) => {
     try {

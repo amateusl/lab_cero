@@ -1,19 +1,23 @@
 import {pool} from "../db.js";
 
-export const createVivienda = async (req, res) => {
-    try {
-      const { direccion, capacidad, niveles } = req.body;
-      const viviendaTemp = await pool.query(
-        "INSERT INTO vivienda (direccion, capacidad, niveles) VALUES($1, $2, $3) RETURNING *",
-        [direccion, capacidad, niveles]
-      );
-  
-      res.json(viviendaTemp.rows[0]);
-    } catch (err) {
-      res.json(err.message);
-      console.error(err.message);
+export const createVivienda = async (req, res) => { 
+  try {
+    const { direccion, capacidad, niveles } = req.body;
+    const lastVivienda = await pool.query("SELECT id_vivienda FROM vivienda ORDER BY id_vivienda DESC LIMIT 1");
+    if (lastVivienda.rows.length > 0) {
+      const lastId = lastVivienda.rows[0].id_vivienda;
+      await pool.query("SELECT setval('vivienda_id_vivienda_seq', $1)", [lastId]);
     }
+    const viviendaTemp = await pool.query(
+      "INSERT INTO vivienda (direccion, capacidad, niveles) VALUES($1, $2, $3) RETURNING *",
+      [direccion, capacidad, niveles]
+    );
+    res.json(viviendaTemp.rows[0]);
+  } catch (err) {
+    res.json(err.message);
+    console.error(err.message);
   }
+};
 
 export const getVivienda = async (req, res) => {
     try {

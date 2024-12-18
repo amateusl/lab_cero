@@ -28,13 +28,13 @@ function Modal({ onClose, id, idalcaldeext, nombrealcaldeext, nombreext, altitud
         }
         try {
             const alcaldeInfo = await getPersonaById(idalcalde);
-            if (!alcaldeInfo.data) {
+            if (!alcaldeInfo) {
                 Swal.fire('Error', 'El alcalde no existe', 'error');
                 return;
             }
 
             const existingGobierna = await getGobiernaByIdPersona(idalcalde);
-            if (existingGobierna.data && existingGobierna.data[0] && existingGobierna.data[0].length > 0) {
+            if (existingGobierna && existingGobierna[0] && existingGobierna[0].length > 0) {
                 Swal.fire('Error', 'El alcalde ya está asignado a otro municipio', 'error');
                 return;
             }

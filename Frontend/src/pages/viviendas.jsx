@@ -1,40 +1,36 @@
-import Layout from "../components/layout/layout"
-import Card from "../components/card/card-vivienda"
+import Layout from "../components/layout/layout";
+import Card from "../components/card/card-vivienda";
 import { useState, useEffect } from 'react';
 import CreateModal from "../components/modal/vivienda/modal-create-vivienda";
 import { getViviendas } from "../api/vivienda";
 import { getViviendaDetalle } from "../api/vivienda";
 
-
 export default function Viviendas() {
     const [viviendas, setViviendas] = useState([]);
+    const [search, setSearch] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         const fetchViviendas = async () => {
             try {
                 const viviendasData = await getViviendas();
 
-                // Filtrar viviendas con detalles válidos
+                // Intentar agregar detalles a cada vivienda
                 const viviendasWithDetails = await Promise.all(
                     viviendasData.map(async (vivienda) => {
                         try {
-                            // Intentar obtener detalles de la vivienda
-                            const detalles = await axios.getViviendaDetalle();
-                            return { ...vivienda, detalles: detalles.data };
+                            const detalles = await getViviendaDetalle(vivienda.id_vivienda);
+                            return { ...vivienda, detalles };
                         } catch (error) {
                             console.warn(
                                 `No se encontraron detalles para vivienda ID ${vivienda.id_vivienda}`
                             );
-                            return null; // Devuelve null si no hay detalles
+                            return { ...vivienda, detalles: null }; // Asignar null si no hay detalles
                         }
                     })
                 );
 
-                // Filtrar las viviendas que no tienen detalles
-                const viviendasFiltradas = viviendasWithDetails.filter(
-                    (vivienda) => vivienda !== null
-                );
-
-                setViviendas(viviendasFiltradas);
+                setViviendas(viviendasWithDetails);
             } catch (error) {
                 console.error("Error al obtener viviendas:", error);
             }
@@ -42,10 +38,8 @@ export default function Viviendas() {
 
         fetchViviendas();
     }, []);
-    const [search, setSearch] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const filteredViviendas = viviendas.filter(vivienda =>
+    const filteredViviendas = viviendas.filter((vivienda) =>
         vivienda.direccion.toLowerCase().includes(search.toLowerCase())
     );
 
@@ -66,7 +60,7 @@ export default function Viviendas() {
                             type="text"
                             placeholder="Buscar por dirección de la vivienda"
                             value={search}
-                            onChange={e => setSearch(e.target.value)}
+                            onChange={(e) => setSearch(e.target.value)}
                             className="p-2 rounded-2xl w-80 mt-4"
                         />
                     </div>
@@ -75,11 +69,13 @@ export default function Viviendas() {
                             <Card
                                 key={index}
                                 id={vivienda.id_vivienda}
-                                idpropietario={vivienda.propietario.id_persona}
-                                municipio={vivienda.municipio.nombre}
+                                idpropietario={
+                                    vivienda.detalles?.propietario?.id_persona || 'Sin propietario'
+                                }
+                                municipio={vivienda.detalles?.municipio_nombre || 'Sin municipio'}
                                 direccion={vivienda.direccion}
-                                capacidad={vivienda.capacidad}
-                                niveles={vivienda.niveles}
+                                capacidad={vivienda.capacidad || 'N/A'}
+                                niveles={vivienda.niveles || 'N/A'}
                             />
                         ))}
                     </div>
@@ -87,5 +83,5 @@ export default function Viviendas() {
                 </div>
             </Layout>
         </div>
-    )
+    );
 }

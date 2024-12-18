@@ -23,6 +23,17 @@ export const getViviendas = async () => {
         throw error;
     }
 };
+// Obtener detalles completos de una vivienda
+export const getViviendaDetalle = async (id) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/viviendadetalle/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error obteniendo detalles de la vivienda con ID ${id}:`, error);
+        throw error;
+    }
+};
+
 
 // Obtener una vivienda por ID
 export const getViviendaById = async (id) => {
@@ -55,4 +66,5 @@ export const deleteVivienda = async (id) => {
         console.error(`Error eliminando vivienda con ID ${id}:`, error);
         throw error;
     }
+
 };

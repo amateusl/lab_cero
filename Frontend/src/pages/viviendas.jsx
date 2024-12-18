@@ -3,29 +3,41 @@ import Card from "../components/card/card-vivienda"
 import { useState, useEffect } from 'react';
 import CreateModal from "../components/modal/vivienda/modal-create-vivienda";
 import { getViviendas } from "../api/vivienda";
-import { getUbicaciones } from "../api/ubicada";
-import { getMunicipioInfo } from "../api/municipio";
-import { getPropietarioById } from "../api/propietario";
-import { getPersonaById } from "../api/persona";
+import { getViviendaDetalle } from "../api/vivienda";
+
 
 export default function Viviendas() {
     const [viviendas, setViviendas] = useState([]);
     useEffect(() => {
         const fetchViviendas = async () => {
-            const viviendasData = await getViviendas();
-            // console.log(viviendasData);
-            const viviendasWithMunicipioAndPropietario = await Promise.all(viviendasData.map(async (vivienda) => {
-                const ubicadaData = await getUbicaciones(vivienda.id_vivienda);
-                console.log("Paso1",ubicadaData);
-                const municipioInfo = await getMunicipioInfo(ubicadaData[0].id_municipio);
-                console.log("PAso 2",municipioInfo);
-                const propietarioData = await getPropietarioById(vivienda.id_vivienda, {
-                    "es_id_persona": 0
-                });
-                const personaInfo = await getPersonaById(propietarioData[0].id_persona);
-                return { ...vivienda, municipio: municipioInfo, propietario: personaInfo };
-            }));
-            setViviendas(viviendasWithMunicipioAndPropietario);
+            try {
+                const viviendasData = await getViviendas();
+
+                // Filtrar viviendas con detalles válidos
+                const viviendasWithDetails = await Promise.all(
+                    viviendasData.map(async (vivienda) => {
+                        try {
+                            // Intentar obtener detalles de la vivienda
+                            const detalles = await axios.getViviendaDetalle();
+                            return { ...vivienda, detalles: detalles.data };
+                        } catch (error) {
+                            console.warn(
+                                `No se encontraron detalles para vivienda ID ${vivienda.id_vivienda}`
+                            );
+                            return null; // Devuelve null si no hay detalles
+                        }
+                    })
+                );
+
+                // Filtrar las viviendas que no tienen detalles
+                const viviendasFiltradas = viviendasWithDetails.filter(
+                    (vivienda) => vivienda !== null
+                );
+
+                setViviendas(viviendasFiltradas);
+            } catch (error) {
+                console.error("Error al obtener viviendas:", error);
+            }
         };
 
         fetchViviendas();

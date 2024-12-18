@@ -51,7 +51,7 @@ function CreateModal({ onClose }) {
 
         try {
             const personas = await getPersonas();
-            const existingPersona = personas.data.find(persona => persona.documento === documento);
+            const existingPersona = personas.find(persona => persona.documento === documento);
             if (existingPersona) {
                 Swal.fire({
                     icon: 'error',

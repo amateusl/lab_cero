@@ -12,12 +12,18 @@ export const getPersonas = async (req, res) => {
     }
   }
 
-export const CreatePersona = async (req, res) => {
+  export const CreatePersona = async (req, res) => {
     try {
-      const {  nombre, documento, celular, edad, sexo } = req.body;
+      const { nombre, documento, celular, edad, sexo } = req.body;
+      const lastPersona = await pool.query("SELECT id_persona FROM persona ORDER BY id_persona DESC LIMIT 1");
+      if (lastPersona.rows.length > 0) {
+        const lastId = lastPersona.rows[0].id_persona;
+         await pool.query("SELECT setval('persona_id_persona_seq', $1)", [lastId]);
+      }
+  
       const personaCreada = await pool.query(
-        "INSERT INTO Persona ( nombre, documento, celular, edad, sexo) VALUES($1, $2, $3, $4, $5) RETURNING *",
-        [ nombre, documento, celular, edad, sexo]
+        "INSERT INTO persona (nombre, documento, celular, edad, sexo) VALUES($1, $2, $3, $4, $5) RETURNING *",
+        [nombre, documento, celular, edad, sexo]
       );
   
       res.json(personaCreada.rows[0]);
@@ -25,7 +31,7 @@ export const CreatePersona = async (req, res) => {
       res.json(err.message);
       console.error(err);
     }
-  }
+  };
 
 
 export const getPersonaById = async (req, res) => {

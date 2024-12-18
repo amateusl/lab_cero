@@ -13,9 +13,9 @@ function DependientesModal({ onClose, id }) {
                 "es_id_de_dependiente": 0,
             });
 
-            const datosDependientes = await Promise.all(depen.data.map(async (dependiente) => {
+            const datosDependientes = await Promise.all(depen.map(async (dependiente) => {
                 const persona = await getPersonaById(dependiente.id_dependiente);
-                return persona.data;
+                return persona;
             }));
 
             setDatos(datosDependientes);

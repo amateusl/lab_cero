@@ -12,7 +12,7 @@ router.get("/ubicacion", getUbicacion);//obtener ubicaciones
 router.get("/ubicacion/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const ubicacion = await pool.query("SELECT * FROM ubicada_en WHERE id_vivienda = $1", [id]);
+        const ubicacion = await pool.query("SELECT * FROM ubicado_en WHERE id_vivienda = $1", [id]);
         res.json(ubicacion.rows);
 
     } catch (err) {
@@ -24,7 +24,7 @@ router.get("/ubicacion/:id", async (req, res) => {
 router.get("/ubicacionm/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const ubicacion = await pool.query("SELECT * FROM ubicada_en WHERE id_municipio = $1", [id]);
+        const ubicacion = await pool.query("SELECT * FROM ubicado_en WHERE id_municipio = $1", [id]);
         res.json(ubicacion.rows);
 
     } catch (err) {
@@ -38,7 +38,7 @@ router.get("/ubicacionm/", async (req, res) => {
     try {
         const { id_vivienda, id_municipio } = req.body;
 
-        const ubicacion = await pool.query("SELECT * FROM ubicada_en WHERE id_vivienda = $1 AND id_municipio = $2",
+        const ubicacion = await pool.query("SELECT * FROM ubicado_en WHERE id_vivienda = $1 AND id_municipio = $2",
             [id_vivienda, id_municipio]);
 
         res.json(ubicacion.rows[0]);
@@ -55,7 +55,7 @@ router.put("/ubicacionm/", async (req, res) => {
     try {
         const { id_viviendaNuevo, id_municipioNuevo, id_vivienda, id_municipio } = req.body;
         const ubicacion = await pool.query(
-            "UPDATE ubicada_en SET id_vivienda = $1, id_municipio = $2 WHERE id_vivienda = $3 AND id_municipio = $4",
+            "UPDATE ubicado_en SET id_vivienda = $1, id_municipio = $2 WHERE id_vivienda = $3 AND id_municipio = $4",
             [id_viviendaNuevo, id_municipioNuevo, id_vivienda, id_municipio]
         );
 
@@ -70,7 +70,7 @@ router.put("/ubicacionm/", async (req, res) => {
 router.delete("/ubicacionm/", async (req, res) => {
     try {
         const { id_vivienda, id_municipio } = req.body;
-        const ubicacion = await pool.query("DELETE FROM ubicada_en WHERE id_vivienda = $1 AND id_municipio = $2",
+        const ubicacion = await pool.query("DELETE FROM ubicado_en WHERE id_vivienda = $1 AND id_municipio = $2",
             [id_vivienda, id_municipio]
         );
 

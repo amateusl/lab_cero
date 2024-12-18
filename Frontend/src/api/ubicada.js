@@ -27,7 +27,7 @@ export const getUbicaciones = async () => {
 // Obtener todas las ubicaciones de una vivienda
 export const getUbicacionesDeVivienda = async (id) => {
     try {
-        const response = await axios.get(`${BASE_URL}/ubicacion/${id}`);
+        const response = await axios.get(`${BASE_URL}/ubicacionm/${id}`);
         return response.data;
     } catch (error) {
         console.error(`Error obteniendo ubicaciones de la vivienda con ID ${id}:`, error);

@@ -36,7 +36,7 @@ router.get("/dependiente-cabeza/:id", async (req, res) => {
 }
 );
 
-router.get("/dependientede/:id",verificarDependientes = async (req, res) => {
+router.get("/dependientede/:id", async (req, res) => {
     try {
         const { id_persona } = req.params;
 

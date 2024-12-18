@@ -429,16 +429,7 @@ INSERT INTO public.gobierna (id_persona,id_municipio) VALUES
 (111,111),
 (112,112),
 (113,113),
-(114,114),
-(115,115),
-(116,116),
-(117,117),
-(118,118),
-(119,119),
-(120,120),
-(121,121),
-(122,122),
-(123,123);
+(114,114);
 
 INSERT INTO public.dependiente (id_cabeza_familia,id_dependiente) VALUES
 (1,1),
@@ -663,15 +654,15 @@ INSERT INTO public.reside (id_vivienda,id_persona) VALUES
 (29,153);
 
 
-INSERT INTO public.ubicada_en (id_vivienda,id_municipio) VALUES
+INSERT INTO public.ubicado_en (id_vivienda,id_municipio) VALUES
 (1,47),
-(2,119),
+(2,19),
 (3,1),
 (4,65),
 (5,90),
 (6,20),
 (7,89),
-(8,115),
+(8,15),
 (9,106),
 (10,59),
 (11,69),

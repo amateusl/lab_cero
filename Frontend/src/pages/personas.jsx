@@ -14,17 +14,11 @@ export default function Personas() {
         const fetchPersonas = async () => {
             try {
                 const response = await getPersonas();
-                console.log('Respuesta completa del servidor:', typeof response);
-                console.log('response.data:', typeof response.data);
-                if (Array.isArray(response.data)) {
-                    setPersonas(response.data);
-                } else {
-                    console.error("Error: Datos no válidos", response.data);
-                }
+                setPersonas(response);
             } catch (error) {
-                console.error("Error fetching personas:", error);
+                console.error('Error fetching personas:', error);
             }
-        };
+        }
 
         fetchPersonas();
     }, []);
@@ -35,19 +29,19 @@ export default function Personas() {
     );
 
     return (
-        <div className="bg-color-2">
+        <div className="bg-color-1">
             <Layout>
                 <div className="flex flex-col md:flex-row">
                     {/* Sidebar */}
                     <div className="md:w-1/4 p-4 font-lexend flex flex-col items-center mt-20 m-5 md:ml-10">
                         <button
                             onClick={() => setIsModalOpen(true)} // Abre el modal
-                            className="mt-4 p-2 bg-color-1 text-color-4 rounded-xl text-2xl mb-10"
+                            className="mt-4 p-2 bg-color-4 text-color-1 rounded-xl text-2xl mb-10"
                         >
                             Agregar Persona
                         </button>
                         <img src="" alt="Personas" className="w-40" />
-                        <h1 className="text-6xl font-bold text-color-1">PERSONAS</h1>
+                        <h1 className="text-6xl font-bold text-color-4">PERSONAS</h1>
                         <input
                             type="text"
                             placeholder="Buscar por nombre de la persona"

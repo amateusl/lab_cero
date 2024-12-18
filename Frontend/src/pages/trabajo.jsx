@@ -28,7 +28,7 @@ export default function Trabajo() {
     ) : [];
 
     return (
-        <div className="bg-purple-900">
+        <div className="bg-color-4">
             <Layout>
                 <div className="flex flex-col md:flex-row h-screen">
                     <div className="md:w-1/4 p-4 font-lexend flex flex-col items-center mt-20 m-5 md:ml-10">

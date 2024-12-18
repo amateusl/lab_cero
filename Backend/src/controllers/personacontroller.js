@@ -4,6 +4,8 @@ export const getPersonas = async (req, res) => {
     try {
       const obtencionTodos = await pool.query("SELECT * FROM Persona");
       res.json(obtencionTodos.rows);
+      // console.log(Array.isArray(obtencionTodos.rows));
+      
     } catch (err) {
       res.json(err.message);
       console.error(err.message);

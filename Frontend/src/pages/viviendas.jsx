@@ -35,18 +35,18 @@ export default function Viviendas() {
     );
 
     return (
-        <div className="bg-color-3">
+        <div className="bg-color-1">
             <Layout>
                 <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4 p-4 font-lexend flex flex-col items-center mt-20 m-5 md:ml-10">
                         <button
                             onClick={() => setIsModalOpen(true)}
-                            className="mt-4 p-2 bg-color-1 text-color-4 rounded-xl text-2xl mb-10"
+                            className="mt-4 p-2 bg-color-4 text-color-1 rounded-xl text-2xl mb-10"
                         >
                             Agregar Vivienda
                         </button>
                         <img src="" alt="Viviendas" className="w-80" />
-                        <h1 className="text-6xl font-bold text-color-1">VIVIENDAS</h1>
+                        <h1 className="text-6xl font-bold text-color-4">VIVIENDAS</h1>
                         <input
                             type="text"
                             placeholder="Buscar por dirección de la vivienda"

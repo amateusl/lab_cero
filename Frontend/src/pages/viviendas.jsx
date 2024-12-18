@@ -3,8 +3,8 @@ import Card from "../components/card/card-vivienda"
 import { useState, useEffect } from 'react';
 import CreateModal from "../components/modal/vivienda/modal-create-vivienda";
 import { getViviendas } from "../api/vivienda";
-import { getUbicadaById } from "../api/ubicada";
-import { getMunicipioById } from "../api/municipio";
+import { getUbicacionesDeVivienda } from "../api/ubicada";
+import { getMunicipioInfo } from "../api/municipio";
 import { getPropietarioById } from "../api/propietario";
 import { getPersonaById } from "../api/persona";
 
@@ -14,8 +14,8 @@ export default function Viviendas() {
         const fetchViviendas = async () => {
             const viviendasData = await getViviendas();
             const viviendasWithMunicipioAndPropietario = await Promise.all(viviendasData.map(async (vivienda) => {
-                const ubicadaData = await getUbicadaById(vivienda.id_vivienda, { "es_id_de_vivienda": 1 });
-                const municipioInfo = await getMunicipioById(ubicadaData.data[0].id_municipio);
+                const ubicadaData = await getUbicacionesDeVivienda(vivienda.id_vivienda, { "es_id_de_vivienda": 1 });
+                const municipioInfo = await getMunicipioInfo(ubicadaData.data[0].id_municipio);
                 const propietarioData = await getPropietarioById(vivienda.id_vivienda, {
                     "es_id_persona": 0
                 });

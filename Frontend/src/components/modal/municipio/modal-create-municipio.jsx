@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createMunicipio } from '../../../api/municipio';
 import Swal from 'sweetalert2';
 import { createGobierna } from '../../../api/gobierna';
-import { getGobiernaByIdPerson } from '../../../api/gobierna';
+import { getGobiernaByIdPersona } from '../../../api/gobierna';
 import { getPersonaById } from '../../../api/persona';
 function CreateModal({ onClose }) {
     const [nombre, setNombre] = useState('');
@@ -35,7 +35,7 @@ function CreateModal({ onClose }) {
                 return;
             }
 
-            const existingGobierna = await getGobiernaByIdPerson(alcalde);
+            const existingGobierna = await getGobiernaByIdPersona(alcalde);
             if (existingGobierna.data.length > 0) {
                 Swal.fire('Error', 'El alcalde ya está asignado a otro municipio', 'error');
                 return;

@@ -3,7 +3,7 @@ import { createVivienda } from '../../../api/vivienda';
 import { getMunicipios } from '../../../api/municipio';
 import { getPersonaById } from '../../../api/persona';
 import { createPropietario } from '../../../api/propietario';
-import { createUbicada } from '../../../api/ubicada';
+import { createUbicacion } from '../../../api/ubicada';
 import Swal from 'sweetalert2';
 
 function CreateModal({ onClose }) {
@@ -49,7 +49,7 @@ function CreateModal({ onClose }) {
                 "id_persona": idpropietario,
                 "id_vivienda": newVivienda.id_vivienda
             });
-            await createUbicada({
+            await createUbicacion({
                 "id_vivienda": newVivienda.id_vivienda,
                 "id_municipio": municipio
             });

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3001"; // Cambia si tu backend está en otro dominio o puerto
+const BASE_URL = import.meta.env.VITE_API_URL; 
 
 // Crear una ubicación
 export const createUbicacion = async (data) => {

@@ -1,10 +1,19 @@
 import express from 'express' 
+import cors from 'cors';
 import {PORT} from './config.js'
 
 const app = express();
 
+//cors
+const corsOptions = {
+    origin: ['http://localhost:3000', 'http://localhost:3001'], // Agrega aquí los puertos permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
+
 //manejo de json
 app.use(express.json())
+app.use(cors(corsOptions));
 
 //importacion de rutas
 import dependiente from './routes/dependiente.js'

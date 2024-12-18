@@ -3,7 +3,7 @@ import Card from "../components/card/card-municipio"
 import { useState, useEffect } from 'react';
 import CreateModal from "../components/modal/municipio/modal-create-municipio";
 import { getMunicipios } from "../api/municipio";
-import { getGobiernaById } from "../api/gobierna";
+// import { getGobiernaByIdPersona } from "../api/gobierna";
 import { getPersonaById } from "../api/persona";
 
 export default function Municipios() {
@@ -12,7 +12,7 @@ export default function Municipios() {
         const fetchMunicipios = async () => {
             const municipiosData = await getMunicipios();
             const municipiosWithAlcalde = await Promise.all(municipiosData.data.map(async (municipio) => {
-                const gobiernaData = await getGobiernaById(municipio.id_municipio);
+                // const gobiernaData = await getGobiernaByIdPersona(municipio.id_municipio);
                 const alcaldeInfo = await getPersonaById(gobiernaData.data[0].id_persona);
                 return { ...municipio, gobierna: gobiernaData.data[0].id_persona, alcalde: alcaldeInfo.data };
             }));

@@ -14,6 +14,8 @@ export default function Personas() {
         const fetchPersonas = async () => {
             try {
                 const response = await getPersonas();
+                console.log('Respuesta completa del servidor:', typeof response);
+                console.log('response.data:', typeof response.data);
                 if (Array.isArray(response.data)) {
                     setPersonas(response.data);
                 } else {

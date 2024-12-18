@@ -1,12 +1,13 @@
 import axios from "axios";
 
 
-const BASE_URL = "http://localhost:3001"; 
+const BASE_URL = import.meta.env.VITE_API_URL; 
 
 // Obtener todas las personas
 export const getPersonas = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/persona`);
+
     return response.data;
   } catch (error) {
     console.error("Error obteniendo personas:", error);

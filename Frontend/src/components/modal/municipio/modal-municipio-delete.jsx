@@ -1,10 +1,10 @@
 import { deleteMunicipio } from "../../../api/municipio";
-import { getUbicadaByIdMunicipio } from "../../../api/ubicada";
+import { getUbicacionesDeMunicipio } from "../../../api/ubicada";
 import Swal from 'sweetalert2';
 function ConfirmModal({ onClose, id }) {
     const handleConfirmClick = async () => {
         try {
-            const ubicada = await getUbicadaByIdMunicipio(id);
+            const ubicada = await getUbicacionesDeMunicipio(id);
             if (ubicada.length > 0) {
                 Swal.fire('Error', 'No se puede eliminar el municipio porque tiene viviendas asociadas.', 'error');
                 return;

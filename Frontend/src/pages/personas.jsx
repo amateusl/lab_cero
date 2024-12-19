@@ -8,6 +8,8 @@ export default function Personas() {
     const [personas, setPersonas] = useState([]); // Estado para almacenar personas
     const [search, setSearch] = useState(""); // Estado para búsqueda
     const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+    const [currentPage, setCurrentPage] = useState(1); // Estado para la página actual
+    const itemsPerPage = 8; // Número de personas por página
 
     // Cargar personas desde la API
     useEffect(() => {
@@ -28,8 +30,17 @@ export default function Personas() {
         persona.nombre.toLowerCase().includes(search.toLowerCase())
     );
 
+    // Calcular las páginas totales
+    const totalPages = Math.ceil(filteredPersonas.length / itemsPerPage);
+
+    // Dividir las personas para la página actual
+    const displayedPersonas = filteredPersonas.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
     return (
-        <div className="bg-color-1">
+        <div className="bg-color-1 bg-opacity-70">
             <Layout>
                 <div className="flex flex-col md:flex-row">
                     {/* Sidebar */}
@@ -53,7 +64,7 @@ export default function Personas() {
 
                     {/* Lista de Personas */}
                     <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 h-full min-h-screen p-20 content-start">
-                        {filteredPersonas.map((persona) => (
+                        {displayedPersonas.map((persona) => (
                             <Card
                                 key={persona.id_persona} // Usa un ID único como clave
                                 id={persona.id_persona}
@@ -65,6 +76,27 @@ export default function Personas() {
                             />
                         ))}
                     </div>
+                </div>
+
+                {/* Controles de Paginación */}
+                <div className="flex justify-center mt-4 mb-10">
+                    <button 
+                        onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 bg-color-4 text-color-1 rounded-lg mr-2"
+                    >
+                        Anterior
+                    </button>
+                    <span className="px-4 py-2 text-color-4">
+                        {currentPage} de {totalPages}
+                    </span>
+                    <button
+                        onClick={() => setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 bg-color-4 text-color-1 rounded-lg ml-2"
+                    >
+                        Siguiente
+                    </button>
                 </div>
 
                 {/* Modal */}

@@ -6,9 +6,11 @@ import { getMunicipios } from "../api/municipio";
 import { getGobiernaByIdMunicipio } from "../api/gobierna";
 
 export default function Municipios() {
-    const [municipios, setMunicipios] = useState([]);
-    const [search, setSearch] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [municipios, setMunicipios] = useState([]); // Estado para municipios
+    const [search, setSearch] = useState(''); // Estado para búsqueda
+    const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+    const [currentPage, setCurrentPage] = useState(1); // Estado para la página actual
+    const itemsPerPage = 8; // Número de municipios por página
 
     useEffect(() => {
         const fetchMunicipios = async () => {
@@ -38,14 +40,25 @@ export default function Municipios() {
         fetchMunicipios();
     }, []);
 
+    // Filtrar municipios basándose en el nombre
     const filteredMunicipios = municipios.filter((municipio) =>
         municipio.nombre.toLowerCase().includes(search.toLowerCase())
+    );
+
+    // Calcular las páginas totales
+    const totalPages = Math.ceil(filteredMunicipios.length / itemsPerPage);
+
+    // Dividir los municipios para la página actual
+    const displayedMunicipios = filteredMunicipios.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
     );
 
     return (
         <div className="bg-color-4">
             <Layout>
                 <div className="flex flex-col md:flex-row">
+                    {/* Sidebar */}
                     <div className="md:w-1/4 p-4 font-lexend flex flex-col items-center mt-20 m-5 md:ml-10">
                         <button
                             onClick={() => setIsModalOpen(true)}
@@ -63,8 +76,10 @@ export default function Municipios() {
                             className="p-2 rounded-2xl w-80 mt-4"
                         />
                     </div>
+
+                    {/* Lista de Municipios */}
                     <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 h-full min-h-screen p-20 content-start">
-                        {filteredMunicipios.map((municipio, index) => (
+                        {displayedMunicipios.map((municipio, index) => (
                             <Card
                                 key={index}
                                 id={municipio.id_municipio}
@@ -76,6 +91,29 @@ export default function Municipios() {
                         ))}
                     </div>
                 </div>
+
+                {/* Controles de Paginación */}
+                <div className="flex justify-center mt-4 mb-10">
+                    <button 
+                        onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 bg-color-1 text-color-4 rounded-lg mr-2"
+                    >
+                        Anterior
+                    </button>
+                    <span className="px-4 py-2 text-color-1">
+                        {currentPage} de {totalPages}
+                    </span>
+                    <button
+                        onClick={() => setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 bg-color-1 text-color-4 rounded-lg ml-2"
+                    >
+                        Siguiente
+                    </button>
+                </div>
+
+                {/* Modal */}
                 {isModalOpen && <CreateModal onClose={() => setIsModalOpen(false)} />}
             </Layout>
         </div>

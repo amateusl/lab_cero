@@ -13,14 +13,14 @@ function Card({ idtrabajo, cargo, empresa, salario, idpersona }) {
     };
     return (
         <div className="card bg-color-1 rounded-xl p-4 shadow-lg font-lexend h-fit" key={idtrabajo}>
-            <div className="flex items-center">
+            <div className="flex items-center text-white">
                 <FontAwesomeIcon icon={faUser} size="xl" />
                 <h2 className='ml-4 text-bold text-lg'>Cargo : {cargo}</h2>
             </div>
-            <p>Id trabajo: {idtrabajo}</p>
-            <p>Empresa: {empresa}</p>
-            <p>Salario: $ {salario} </p>
-            <p>Id de persona: {idpersona}</p>
+            <p className="text-white">Id trabajo: {idtrabajo}</p>
+            <p className="text-white">Empresa: {empresa}</p>
+            <p className="text-white">Salario: $ {salario} </p>
+            <p className="text-white">Id de persona: {idpersona}</p>
             <button onClick={handleDeleteClick} className='mr-5 mt-2'>
                 <FontAwesomeIcon icon={faTrash} color="red" size="lg" />
             </button>

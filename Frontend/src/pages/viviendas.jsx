@@ -67,7 +67,7 @@ export default function Viviendas() {
                         >
                             Agregar Vivienda
                         </button>
-                        <img src="" alt="Viviendas" className="w-80" />
+                        <img src="https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/casa.png?raw=true" alt="Viviendas" className="w-80" />
                         <h1 className="text-6xl font-bold text-color-4">VIVIENDAS</h1>
                         <input
                             type="text"

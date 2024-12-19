@@ -51,7 +51,7 @@ export default function Personas() {
                         >
                             Agregar Persona
                         </button>
-                        <img src="" alt="Personas" className="w-40" />
+                        <img src="https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/persona.png?raw=true" alt="Personas" className="w-40" />
                         <h1 className="text-6xl font-bold text-color-4">PERSONAS</h1>
                         <input
                             type="text"

@@ -26,14 +26,14 @@ function Card({ id, nombre, area, altitud, idalcalde, nombrealcalde }) {
 
     return (
         <div className="card bg-color-1 rounded-xl p-4 shadow-lg font-lexend h-fit" key={id}>
-            <div className="flex items-center">
+            <div className="flex items-center text-white">
                 <FontAwesomeIcon icon={faCity} size="xl" />
                 <h2 className='ml-4 text-bold text-lg'>{nombre}</h2>
             </div>
-            <p>Id municipio: {id}</p>
-            <p>Alcalde: {nombrealcalde}</p>
-            <p>Área: {area} km²</p>
-            <p>Altitud: {altitud} m</p>
+            <p className="text-white">Id municipio: {id}</p>
+            <p className="text-white">Alcalde: {nombrealcalde}</p>
+            <p className="text-white">Área: {area} km²</p>
+            <p className="text-white">Altitud: {altitud} m</p>
             <button onClick={handleEditClick} className='mr-5 mt-2'>
                 <FontAwesomeIcon icon={faEdit} size="lg" />
             </button>

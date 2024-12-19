@@ -53,7 +53,7 @@ export default function Trabajo() {
                             >
                                 Agregar trabajo
                             </button>
-                            <img src="" alt="Trabajos" className="w-3/4" />
+                            <img src="https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/trabajo.png?raw=true" alt="Trabajos" className="w-3/4" />
                             <h1 className="text-6xl font-bold text-color-1">
                                 TRABAJO
                             </h1>

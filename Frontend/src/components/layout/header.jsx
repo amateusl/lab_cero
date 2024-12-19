@@ -13,7 +13,7 @@ export default function Header() {
         <nav className="bg-color-1 font-lexend">
             <div className="container mx-auto px-4 py-2 flex flex-wrap justify-between items-center text-color-4">
                 <Link to="/" className="w-full sm:w-auto text-center sm:text-left">
-                    <span className="font-bold text-5xl">CRUD-0</span>
+                    <span className="font-bold text-5xl">LEROI CRUD</span>
                 </Link>
 
                 <ul className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 space-x-0 sm:space-x-4 text-2xl w-full sm:w-auto">

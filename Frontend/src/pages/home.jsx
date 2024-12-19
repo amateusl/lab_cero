@@ -14,7 +14,7 @@ export default function Home() {
             {/* Título centrado en la parte superior */}
             <div className="text-center mt-8">
                 <h1 className="text-4xl md:text-5xl font-lexend text-color-4 font-bold">
-                    LAB0: CRUD
+                    LAB-0: CRUD
                 </h1>
                 <p className="text-lg md:text-2xl font-lexend text-color-4 mt-2">
                     Grupo - LEROI
@@ -22,12 +22,14 @@ export default function Home() {
             </div>
 
             {/* Header (botones centrados en el medio de la pantalla) */}
-            <nav className="bg-color-1 font-lexend w-full p-6" >
+            <nav className="bg-color-1 font-lexend w-full p-6">
                 <ul className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 text-2xl text-color-4">
                     <li>
                         <Link
                             to="/"
-                            className={`px-4 py-2 font-medium rounded ${currentPath === '/' ? 'rounded-3xl border border-color-4' : ''}`}
+                            className={`px-4 py-2 font-medium rounded ${
+                                currentPath === "/" ? "rounded-3xl border border-color-4" : ""
+                            }`}
                         >
                             Inicio
                         </Link>
@@ -35,7 +37,11 @@ export default function Home() {
                     <li>
                         <Link
                             to="/personas"
-                            className={`px-4 py-2 font-medium rounded ${currentPath === '/personas' ? 'rounded-3xl border border-color-4' : ''}`}
+                            className={`px-4 py-2 font-medium rounded ${
+                                currentPath === "/personas"
+                                    ? "rounded-3xl border border-color-4"
+                                    : ""
+                            }`}
                         >
                             Personas
                         </Link>
@@ -43,7 +49,11 @@ export default function Home() {
                     <li>
                         <Link
                             to="/municipios"
-                            className={`px-4 py-2 font-medium rounded ${currentPath === '/municipios' ? 'rounded-3xl border border-color-4' : ''}`}
+                            className={`px-4 py-2 font-medium rounded ${
+                                currentPath === "/municipios"
+                                    ? "rounded-3xl border border-color-4"
+                                    : ""
+                            }`}
                         >
                             Municipios
                         </Link>
@@ -51,7 +61,11 @@ export default function Home() {
                     <li>
                         <Link
                             to="/viviendas"
-                            className={`px-4 py-2 font-medium rounded ${currentPath === '/viviendas' ? 'rounded-3xl border border-color-4' : ''}`}
+                            className={`px-4 py-2 font-medium rounded ${
+                                currentPath === "/viviendas"
+                                    ? "rounded-3xl border border-color-4"
+                                    : ""
+                            }`}
                         >
                             Viviendas
                         </Link>
@@ -59,7 +73,11 @@ export default function Home() {
                     <li>
                         <Link
                             to="/trabajo"
-                            className={`px-4 py-2 font-medium rounded ${currentPath === '/trabajo' ? 'rounded-3xl border border-color-4' : ''}`}
+                            className={`px-4 py-2 font-medium rounded ${
+                                currentPath === "/trabajo"
+                                    ? "rounded-3xl border border-color-4"
+                                    : ""
+                            }`}
                         >
                             Trabajo
                         </Link>
@@ -68,35 +86,35 @@ export default function Home() {
             </nav>
 
             <div className="w-full h-96">
-            <img
-            src="/src/assets/home/Cundimapa.jpg"
-            alt="Imagen principal"
-            className="w-full h-96 object-cover"
-            />
+                <img
+                    src="https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/home/Cundimapa.jpg?raw=true"
+                    alt="Imagen principal"
+                    className="w-full h-96 object-cover"
+                />
             </div>
 
             {/* Sección de integrantes en 2 columnas */}
-            <div className=" bg-color-1 grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 mb-12 w-full px-8 md:px-20">
+            <div className="bg-color-1 grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 mb-12 w-full px-8 md:px-20">
                 {[
                     {
                         name: "Sebastián López Silva",
                         role: "Ing. de sistemas y computación",
-                        image: "/src/assets/members/mateo.png"
+                        image: "https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/members/mateo.png?raw=true"
                     },
                     {
                         name: "Maria Camila Amaya Rodríguez",
                         role: "Ing. de sistemas y computación",
-                        image: "/src/assets/members/camila.png"
+                        image: "https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/members/camila.png?raw=true"
                     },
                     {
                         name: "Anderson Steven Mateus López",
                         role: "Ing. de sistemas y computación",
-                        image: "/src/assets/members/anderson.png"
+                        image: "https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/members/anderson.png?raw=true"
                     },
                     {
                         name: "Juan David Rodríguez Gómez",
                         role: "Ing. de sistemas y computación",
-                        image: "/src/assets/members/juan.png"
+                        image: "https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/members/juan.png?raw=true"
                     }
                 ].map((member, index) => (
                     <div

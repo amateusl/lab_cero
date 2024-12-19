@@ -66,7 +66,7 @@ export default function Municipios() {
                         >
                             Agregar Municipio
                         </button>
-                        <img src="" alt="Municipios" className="w-full" />
+                        <img src="https://github.com/amateusl/lab_cero/blob/FrontEnd/Frontend/src/assets/municipio.png?raw=true" alt="Municipios" className="w-full" />
                         <h1 className="text-6xl font-bold text-color-1">MUNICIPIOS</h1>
                         <input
                             type="text"

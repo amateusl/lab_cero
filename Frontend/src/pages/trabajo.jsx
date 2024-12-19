@@ -5,10 +5,13 @@ import CreateModal from "../components/modal/trabajo/modal-create-trabajo";
 import { getTrabajos } from "../api/trabajo";
 
 export default function Trabajo() {
-    const [trabajos, setTrabajos] = useState([]);
-    const [search, setSearch] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [trabajos, setTrabajos] = useState([]); // Estado para almacenar trabajos
+    const [search, setSearch] = useState(""); // Estado para búsqueda
+    const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+    const [currentPage, setCurrentPage] = useState(1); // Estado para la página actual
+    const itemsPerPage = 8; // Número de trabajos por página
 
+    // Cargar trabajos desde la API
     useEffect(() => {
         const fetchTrabajos = async () => {
             try {
@@ -23,11 +26,19 @@ export default function Trabajo() {
         fetchTrabajos();
     }, []);
 
-    const filteredTrabajos = trabajos
-        ? trabajos.filter((trabajo) =>
-              trabajo.cargo.toLowerCase().includes(search.toLowerCase())
-          )
-        : [];
+    // Filtrar trabajos basándose en el cargo
+    const filteredTrabajos = trabajos.filter((trabajo) =>
+        trabajo.cargo.toLowerCase().includes(search.toLowerCase())
+    );
+
+    // Calcular las páginas totales
+    const totalPages = Math.ceil(filteredTrabajos.length / itemsPerPage);
+
+    // Dividir los trabajos para la página actual
+    const displayedTrabajos = filteredTrabajos.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <div className="bg-color-4 min-h-screen flex flex-col">
@@ -50,14 +61,14 @@ export default function Trabajo() {
                                 type="text"
                                 placeholder="Buscar por cargo"
                                 value={search}
-                                onChange={(e) => setSearch(e.target.value)}
+                                onChange={(e) => setSearch(e.target.value)} // Actualiza la búsqueda
                                 className="p-2 rounded-2xl w-80 mt-4"
                             />
                         </div>
 
                         {/* Main content */}
                         <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 h-full min-h-screen p-20">
-                            {filteredTrabajos.map((trabajo, index) => (
+                            {displayedTrabajos.map((trabajo, index) => (
                                 <Card
                                     key={index}
                                     idtrabajo={trabajo.id_trabajo}
@@ -68,6 +79,27 @@ export default function Trabajo() {
                                 />
                             ))}
                         </div>
+                    </div>
+
+                    {/* Controles de Paginación */}
+                    <div className="flex justify-center mt-4 mb-10">
+                        <button
+                            onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
+                            disabled={currentPage === 1}
+                            className="px-4 py-2 bg-color-1 text-color-4 rounded-lg mr-2"
+                        >
+                            Anterior
+                        </button>
+                        <span className="px-4 py-2 text-color-1">
+                            {currentPage} de {totalPages}
+                        </span>
+                        <button
+                            onClick={() => setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                            className="px-4 py-2 bg-color-1 text-color-4 rounded-lg ml-2"
+                        >
+                            Siguiente
+                        </button>
                     </div>
 
                     {/* Modal */}

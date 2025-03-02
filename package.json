@@ -1,19 +1,12 @@
 {
-  "name": "labcrud0",
-  "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node --env-file .env --watch src/index.js"
+    "start": "concurrently \"npm run dev --prefix ./frontend\" \"npm run dev --prefix ./backend\"",
+    "dev": "concurrently \"npm run dev --prefix ./frontend\" \"npm run dev --prefix ./backend\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
   "dependencies": {
-    "express": "^4.21.2",
-    "morgan": "^1.10.0",
-    "pg": "^8.13.1"
+    "cors": "^2.8.5"
   }
 }
